@@ -74,7 +74,7 @@ function MqttClient() {
       client.on('connect', () => {
         client.subscribe(topic, (error) => {
           if (!error) {
-            console.log('User connected');
+            console.log('Connected');
           }
         });
         client.on('message', (topic, clientMessage) => {
