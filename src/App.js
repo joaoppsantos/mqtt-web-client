@@ -1,25 +1,56 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+const mqtt = require('precompiled-mqtt');
 
-function App() {
+function MqttClient() {
+  const [hostname, setHostname] = useState(process.env.REACT_APP_HOSTNAME);
+  const [username, setUsername] = useState(process.env.REACT_APP_USERNAME);
+  const [password, setPassword] = useState(process.env.REACT_APP_PASSWORD);
+  const [receivedMessage, setReceivedMessage] = useState('');
+  const [receivedTopic, setReceivedTopic] = useState('');
+  let client;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h3>Connection</h3>
+      <form>
+        <label>
+          HOSTNAME:
+          <input
+            className="label"
+            type="text"
+            value={hostname}
+            onChange={(e) => setHostname(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          USERNAME:
+          <input
+            className="label"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          PASSWORD:
+          <input
+            className="label"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+      </form>
+      <h3>Messages</h3>
+      <p>
+        RECEIVED MESSAGE: {receivedMessage}{' '}
+        {receivedTopic && <span>FROM {receivedTopic}</span>}
+      </p>
     </div>
   );
 }
 
-export default App;
+export default MqttClient;
