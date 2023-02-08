@@ -1,8 +1,10 @@
-# Getting Started with Create React App
+# MQTT WebClient
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application makes use of MQTT in order to establish a messaging service between a MQTT platform and a device.
 
-## Available Scripts
+It allows the connection to a broker instance of choice, subscription to a topic in order to receive messages on that topic and also to publish a message to a certain topic.
+
+## Getting Started
 
 In the project directory, you can run:
 
@@ -27,8 +29,6 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
@@ -39,32 +39,10 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Using the application
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+In order to interact with a broker instance you require to have the hostname/URL for that broker, as well as the same websocket port as the one that's specified on configs. If the port is different from "port: 8884", you need to change it to the correct value in order to establish a messaging connection.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To receive and publish messages, you also need to have a hostname, username, and password set. It is recommended to store these values in a .env file, with the following variables: REACT_APP_HOSTNAME, REACT_APP_USERNAME, and REACT_APP_PASSWORD.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Once these values are set, you can publish a message (with a topic and message) and receive it on the broker if the topic is subscribed to it. Alternatively, you can subscribe to topics to receive updates when the broker sends a message on a subscribed topic.
