@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
+import {
+  ConnectionSection,
+  ReceivedMessage,
+  MessagesSection,
+  TopicSection,
+} from './components';
 const mqtt = require('precompiled-mqtt');
 
 function MqttClient() {
@@ -90,91 +96,29 @@ function MqttClient() {
 
   return (
     <div className="container">
-      <h3>Connection</h3>
-      <form>
-        <label>
-          HOSTNAME:
-          <input
-            className="label"
-            type="text"
-            value={hostname}
-            onChange={(e) => setHostname(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          USERNAME:
-          <input
-            className="label"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          PASSWORD:
-          <input
-            className="label"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-      </form>
-      <h3>Messages</h3>
-      <form>
-        <label>
-          TOPIC:
-          <input
-            className="label"
-            type="text"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          MESSAGE:
-          <input
-            className="label"
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-        </label>
-        <br />
-        <div className="button">
-          <button onClick={(e) => handlePublish(e, client)}>
-            Publish Message
-          </button>
-        </div>
-      </form>
-      <h3>Topics</h3>
-      <form>
-        <label>
-          SUBSCRIBE TO:
-          <input
-            className="label"
-            type="text"
-            value={topicCandidate}
-            onChange={(e) => setTopicCandidate(e.target.value)}
-          />
-        </label>
-        <br />
-        <div className="button">
-          <button onClick={(e) => handleSubscribe(e)}>Subscribe</button>
-        </div>
-      </form>
-      <ul>
-        {subscribedTopic.map((candidate, index) => (
-          <li key={index}>{candidate}</li>
-        ))}
-      </ul>
-      <p>
-        RECEIVED MESSAGE: {receivedMessage}{' '}
-        {receivedTopic && <span>FROM {receivedTopic}</span>}
-      </p>
+      <ConnectionSection
+        setHostname={setHostname}
+        setUsername={setUsername}
+        setPassword={setPassword}
+        hostname={hostname}
+        username={username}
+        password={password}
+      />
+      <MessagesSection
+        setTopic={setTopic}
+        setMessage={setMessage}
+        handlePublish={handlePublish}
+        topic={topic}
+        message={message}
+        client={client}
+      />
+      <TopicSection
+        topicCandidate={topicCandidate}
+        setTopicCandidate={setTopicCandidate}
+        handleSubscribe={handleSubscribe}
+        subscribedTopic={subscribedTopic}
+      />
+      <ReceivedMessage message={receivedMessage} topic={receivedTopic} />
     </div>
   );
 }
